@@ -1,0 +1,61 @@
+.readPost {
+    flex: 9;
+}
+
+.readPostWrapper {
+    padding: 20px;
+    padding-right: 0px;
+}
+
+.readPostImg {
+    width: 100%;
+    height: 300px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.readPostTitle {
+    text-align: center;
+    margin: 10px;
+    font-family: 'Lora', serif;
+    font-size: 28px;
+}
+
+.readPostEdit {
+    float: right;
+    font-size: 16px;
+}
+
+.readPostIcon {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.readPostIcon:first-child {
+    color: teal;
+}
+
+.readPostIcon:last-child {
+    color: tomato;
+}
+
+.readPostInfo {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-family: 'Varela Round', sans-serif;
+    color: #b39656;
+}
+
+.readPostDesc {
+    color: #666;
+    font-size: 18px;
+    line-height: 25px;
+}
+
+.readPostDesc::first-letter {
+    margin-left: 20px;
+    font-size: 30px;
+    font-weight: 600;
+}
