@@ -18,6 +18,10 @@ app.get('/', (req, res) => {
 
 registerRoutes(app)
 
+app.use((err, req, res, next) => {
+    res.status(500).send({ message: err.message })
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
 })

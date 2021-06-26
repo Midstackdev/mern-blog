@@ -11,11 +11,13 @@ export const setEnvironment = (app) => {
 
 const setDevEnv = (app) => {
     process.env.NODE_ENV = 'development'
+    app.use(express.json())
+    app.use(express.urlencoded({extended: true}))
     app.use(morgan('common'))
-    console.log('nay')
 }
 
 const setProdEnv = (app) => {
     process.env.NODE_ENV === 'production'
-    console.log('yay')
+    app.use(express.json())
+    app.use(express.urlencoded({extended: true}))
 }

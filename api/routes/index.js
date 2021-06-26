@@ -1,5 +1,7 @@
-
+import authRoutes from './auth.js'
+import userRoutes from './user.js'
 
 export const registerRoutes = (app) => {
-    console.log('all')
+    app.use('/api/auth', authRoutes)
+    app.use('/api/users', userRoutes)
 }
