@@ -12,7 +12,7 @@ const postSchema = mongoose.Schema({
     },
     photo: {
         type: String,
-        require: true,
+        default: '',
     },
     profilePicture: {
         type: String,

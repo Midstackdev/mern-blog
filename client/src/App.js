@@ -18,7 +18,7 @@ function App() {
         <Route path="/settings" exact component={Settings} />
         <Route path="/write" exact component={Write} />
         <Route path="/login" exact component={Login} />
-        <Route path="/" component={Home} />
+        <Route path="/" exact component={Home} />
       </Switch>
     </Router>
   );
