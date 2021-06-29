@@ -7,17 +7,21 @@ import Settings from "./pages/settings/Settings";
 import Write from "./pages/write/Write";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
+import { useContext } from 'react';
+import { Context } from './context/Context';
 
 function App() {
+  const { user } = useContext(Context)
+  
   return (
     <Router>
       <TopBar />
       <Switch>
         <Route path="/post/:id" exact component={Article} />
-        <Route path="/register" exact component={Register} />
-        <Route path="/settings" exact component={Settings} />
-        <Route path="/write" exact component={Write} />
-        <Route path="/login" exact component={Login} />
+        <Route path="/register" exact component={() => ( user? <Redirect to="/"/> : <Register/>)} />
+        <Route path="/settings" exact component={() => ( !user? <Redirect to="/login"/> : <Settings/>)} />
+        <Route path="/write" exact component={() => ( !user? <Redirect to="/login"/> : <Write/>)} />
+        <Route path="/login" exact component={() => ( user? <Redirect to="/"/> : <Login/>)} />
         <Route path="/" exact component={Home} />
       </Switch>
     </Router>
