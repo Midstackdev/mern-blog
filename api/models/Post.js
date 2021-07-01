@@ -14,10 +14,6 @@ const postSchema = mongoose.Schema({
         type: String,
         default: '',
     },
-    profilePicture: {
-        type: String,
-        default: '',
-    },
     username: {
         type: String,
         required: true,
