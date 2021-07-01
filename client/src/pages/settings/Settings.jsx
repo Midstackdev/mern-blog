@@ -1,9 +1,50 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useContext, useState } from 'react'
 import Sidebar from '../../components/sidebar/Sidebar'
+import { Context } from '../../context/Context'
 
 import './settings.css'
 
 export default function Settings() {
+    const { dispatch, user } = useContext(Context)
+    const [username, setUsername] = useState(user?.username)
+    const [email, setEmail] = useState(user?.email)
+    const [password, setPassword] = useState('')
+    const [file, setFile] = useState(null)
+    const [success, setSuccess] = useState(false)
+    const PF = "http://localhost:5000/images/"
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        dispatch({ type: "UPDATE_START"})
+        const updateUser = {
+            userId: user._id,
+            username,
+            email,
+            password
+            
+        }
+        if(file) {
+            const data = new FormData()
+            const filename = Date.now() + file.name
+            data.append('name', filename)
+            data.append('file', file)
+            updateUser.profilePicture = filename
+            try {
+                await axios.post(`/upload`, data)
+            } catch (error) {
+                
+            }
+        }
+        try {
+            const res = await axios.put(`/users/${user._id}`, updateUser)
+            setSuccess(true)
+            dispatch({ type: "UPDATE_SUCCESS", payload: res.data })
+        } catch (error) {
+            dispatch({ type: "UPDATE_FAILURE"})
+        }
+    }
+
     return (
         <div className="settings">
             <div className="settingsWrapper">
@@ -11,26 +52,30 @@ export default function Settings() {
                     <span className="settingsUpdateTitle">Update Your Account</span>
                     <span className="settingsDeleteTitle">Delete Your Account</span>
                 </div>
-                <form className="settingsForm">
+                <form className="settingsForm" onSubmit={handleSubmit}>
                     <label htmlFor="">Profile Picture</label>
                     <div className="settingsImg">
                         <img 
-                            src="https://images.unsplash.com/photo-1583391265517-35bbdad01209?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1268&q=80" 
+                            src={file ? URL.createObjectURL(file) : `${PF}${user.profilePicture}`}
                             alt="" 
                             className="" 
                         />
                         <label htmlFor="fileInput">
                             <i className="settingsImgIcon far fa-user-circle"></i>
                         </label>
-                        <input type="file" id="fileInput" style={{ display: 'none' }} />
+                        <input type="file" id="fileInput" style={{ display: 'none' }} onChange={(e) => setFile(e.target.files[0])} />
                     </div>
                     <label htmlFor="">Username</label>
-                    <input type="text" placeholder="Al Smith"/>
+                    <input type="text" placeholder={user.username} value={username} onChange={(e) => setUsername(e.target.value)} />
                     <label htmlFor="">Email</label>
-                    <input type="email" placeholder="smif@gm.com"/>
+                    <input type="email" placeholder={user.email} value={email} onChange={(e) => setEmail(e.target.value)} />
                     <label htmlFor="">Password</label>
-                    <input type="password" />
-                    <button className="setingsSubmit">Update</button>
+                    <input type="password" onChange={(e) => setPassword(e.target.value)} />
+                    <button className="setingsSubmit" type="submit">Update</button>
+                    {success && 
+                    <span style={{color: 'green', textAlign: 'center', marginTop: '20px'}}
+                        >Profile updated
+                    </span>}
                 </form>
             </div>
             <Sidebar />

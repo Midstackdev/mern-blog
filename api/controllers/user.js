@@ -5,15 +5,17 @@ import bcrypt from 'bcrypt'
 const rounds = 10 
 
 export const update = async (req, res) => {
-    
+    let body = req.body
     if(req.params.id === req.body.userId) {
         if(req.body.password) {
             const salt = await bcrypt.genSalt(rounds)
             req.body.password = await bcrypt.hash(req.body.password, salt)
+        }else {
+            delete body.password
         }
-        
+
         const updatedUser = await User.findByIdAndUpdate(req.params.id, {
-            $set: req.body
+            $set: body
         }, { new: true })
     
         return res.status(201).json(updatedUser)
