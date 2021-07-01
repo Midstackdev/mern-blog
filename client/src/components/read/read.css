@@ -5,6 +5,8 @@
 .readPostWrapper {
     padding: 20px;
     padding-right: 0px;
+    display: flex;
+    flex-direction: column;
 }
 
 .readPostImg {
@@ -19,6 +21,20 @@
     margin: 10px;
     font-family: 'Lora', serif;
     font-size: 28px;
+}
+
+.readPostTitleInput {
+    text-align: center;
+    margin: 10px;
+    font-family: 'Lora', serif;
+    font-size: 28px;
+    border: none;
+    color: gray;
+    border-bottom: 1px solid lightgray;
+}
+
+.readPostTitleInput:focus {
+    outline: none;
 }
 
 .readPostEdit {
@@ -52,6 +68,31 @@
     color: #666;
     font-size: 18px;
     line-height: 25px;
+}
+
+.readPostDescInput {
+    color: #666;
+    font-size: 18px;
+    line-height: 25px;
+    border: none;
+    height: 50vh;
+}
+
+.updatePostButton {
+    border: none;
+    background-color: teal;
+    padding: 5px;
+    color: white;
+    width: 100px;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.readPostDescInput:focus {
+    outline: none;
 }
 
 .readPostDesc::first-letter {
