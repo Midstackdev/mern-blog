@@ -9,6 +9,9 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import { useContext } from 'react';
 import { Context } from './context/Context';
+import axios from 'axios';
+
+axios.defaults.baseURL = `${document.location.origin}/api/`;
 
 function App() {
   const { user } = useContext(Context)
